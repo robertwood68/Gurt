@@ -1,0 +1,63 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                           Variables                                                     //
+//      PROGRAMMER:         Robert Wood                                                                    //
+//      COURSE:             CS340                                                                          //
+//      DATE:               10/22/2023                                                                     //
+//      REQUIREMENT:        Assignment 7                                                                   //
+//                                                                                                         //
+//      DESCRIPTION:                                                                                       //
+//      The following program greets the user, declares three variables, stores user input in the three    //
+//      variables, prints the variables in order and in reverse order, then calculates the sum of x and y  //
+//      and stores the result in z.                                                                        //
+//                                                                                                         //
+//      COPYRIGHT:  This code is copyright (C) 2023 Robert Wood and Dean Zeller.                           //
+//                                                                                                         //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// print a greeting
+print("Beginning Gurt Program...\n");
+
+// declare x, y, and z variables
+int x;
+int y;
+int z;
+
+// take input from user
+x = input("Enter a value for x: ");
+y = input("Enter a value for y: ");
+z = input("Enter a value for z: ");
+
+// print the numbers
+print("In order, you entered the numbers:\n");
+print("\tx: ");
+print(x);
+print("\n\ty: ");
+print(y);
+print("\n\tz: ");
+print(z);
+print("\n");
+
+// print the numbers in reverse
+print("In reverse order, you entered the numbers:\n");
+print("\tz: ");
+print(z);
+print("\n\ty: ");
+print(y);
+print("\n\tx: ");
+print(x);
+print("\n");
+
+// do some math and overwrite z value with the result
+z = x + y;
+
+// print the results
+print("The operation z = x + y is computed as follows:\n");
+print("z");
+print(" = ");
+print(x);
+print(" + ");
+print(y);
+print("\n");
+print("The result of the operation is:\n");
+print("z = ");
+print(z);

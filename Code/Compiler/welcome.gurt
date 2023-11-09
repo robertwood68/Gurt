@@ -1,0 +1,16 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                           Welcome                                                       //
+//      PROGRAMMER:         Robert Wood                                                                    //
+//      COURSE:             CS340                                                                          //
+//      DATE:               10/22/2023                                                                     //
+//      REQUIREMENT:        Assignment 7                                                                   //
+//                                                                                                         //
+//      DESCRIPTION:                                                                                       //
+//      The following program is the equivalent to the Gurt language's "Hello World" program.              //
+//                                                                                                         //
+//      COPYRIGHT:  This code is copyright (C) 2023 Robert Wood and Dean Zeller.                           //
+//                                                                                                         //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// print a greeting
+print("Welcome to Gurt!");
