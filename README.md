@@ -1,7 +1,7 @@
 # Gurt - Introductory Programming Language
 
    <p align="center">
-     <img src="https://github.com/robertwood68/Gurt/blob/main/Logo%20Files/GurtLogo2.png?raw=true">
+     <img src="https://github.com/robertwood68/Gurt/blob/main/Logo%20Files/Gurt-trans.png?raw=true">
    </p>
    
 [Gurt](https://github.com/robertwood68/Gurt) is an introductory programming language that is being created to help students who have no programming experience learn to write code easily and understand the basics of data types, operations, and functions.
