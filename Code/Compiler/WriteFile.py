@@ -73,5 +73,6 @@ def getOutputPath(fileName):
     # get grandparent directory path (Assignment 7 Code directory)
     gparent_dir = os.path.dirname(parent_directory)
     # return path to output file
-    folderPath = os.path.join(gparent_dir, "CompiledOutput/MIPS")
+    folderPath = os.path.join(gparent_dir, "CompiledOutput")
+    folderPath = os.path.join(folderPath, "MIPS")
     return os.path.join(folderPath, fileName + "Compiled.asm")
