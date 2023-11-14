@@ -144,7 +144,7 @@ def RISCVCodeGenerator(tokenList, num, currentLine, fileName):
                 if prevToken.value == "print" and token.value =="(" and nextToken.type == "String" and tokenList[tokenList.index(nextToken) + 1].value == ")" and tokenList[len(tokenList)-1].value == ";":
                     RISCData.append(f"print{num}:\t.asciiz\t{nextToken.value}\n\t")
                     RISCText.append(f"li $v0, 4\n\tla $a0, print{num}\n\tsyscall\n\t")
-                elif prevToken.value == "print" and token.value =="(" and nextToken.type == "Symbol" and tokenList[tokenList.index(nextToken) + 1].value == ")" and tokenList[len(tokenList)-1].value == ";"
+                elif prevToken.value == "print" and token.value =="(" and nextToken.type == "Symbol" and tokenList[tokenList.index(nextToken) + 1].value == ")" and tokenList[len(tokenList)-1].value == ";":
                     RISCText.append(f"li $v0, 1\n\tlw $a0, {nextToken.value}\n\tsyscall\n\t")
                 elif prevToken.value == "print" and token.value =="(" and nextToken.type == "Literal" and tokenList[tokenList.index(nextToken) + 1].value == ")" and tokenList[len(tokenList)-1].value == ";":
                     RISCText.append(f"li $v0, 1\n\tli $a0, {nextToken.value}\n\tsyscall\n\t")
