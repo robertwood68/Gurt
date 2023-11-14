@@ -134,18 +134,17 @@ def RISCVCodeGenerator(tokenList, num, currentLine, fileName):
     name, ext = os.path.splitext(fileName)
     for token in tokenList:
         allProgramTokens.append(token)
-    
-        ###################### BEGIN READING LINE AT INSTRUCTION START POINT #################
+        # BEGIN READING LINE AT INSTRUCTION START POINT
         if token != tokenList[0] and len(tokenList) != tokenList.index(token) + 1:
             prevToken = tokenList[tokenList.index(token) - 1]
             nextToken = tokenList[tokenList.index(token) + 1]
 
-            ####################### CONDITIONS FOR PRINT STATEMENTS ##########################
+            # CONDITIONS FOR PRINT STATEMENTS
             if prevToken.type == "Keyword" and token.type == "Separator":
                 if prevToken.value == "print" and token.value =="(" and nextToken.type == "String" and tokenList[tokenList.index(nextToken) + 1].value == ")" and tokenList[len(tokenList)-1].value == ";":
                     RISCData.append(f"print{num}:\t.asciiz\t{nextToken.value}\n\t")
                     RISCText.append(f"li $v0, 4\n\tla $a0, print{num}\n\tsyscall\n\t")
-                elif prevToken.value == "print" and token.value =="(" and nextToken.type == "Symbol" and tokenList[tokenList.index(nextToken) + 1].value == ")" and tokenList[len(tokenList)-1].value == ";":
+                elif prevToken.value == "print" and token.value =="(" and nextToken.type == "Symbol" and tokenList[tokenList.index(nextToken) + 1].value == ")" and tokenList[len(tokenList)-1].value == ";"
                     RISCText.append(f"li $v0, 1\n\tlw $a0, {nextToken.value}\n\tsyscall\n\t")
                 elif prevToken.value == "print" and token.value =="(" and nextToken.type == "Literal" and tokenList[tokenList.index(nextToken) + 1].value == ")" and tokenList[len(tokenList)-1].value == ";":
                     RISCText.append(f"li $v0, 1\n\tli $a0, {nextToken.value}\n\tsyscall\n\t")
@@ -155,9 +154,9 @@ def RISCVCodeGenerator(tokenList, num, currentLine, fileName):
                     writeRISCFile(getRISCData(), getRISCText(), f"Failed - {name}")
                     exit(1)
 
-            ########################### CONDITIONS TO INITIALIZE VARIABLES #############################
+            # CONDITIONS TO INITIALIZE VARIABLES
             elif prevToken.type == "Keyword" and token.type == "Symbol":
-                ####################### INITIALIZE INTEGER VARIABLE ######################
+                # INITIALIZE INTEGER VARIABLE
                 if prevToken.value == "int" and token.type == "Symbol":
                     # integer initialization with assignment
                     if nextToken.type == "Operator":
@@ -178,17 +177,17 @@ def RISCVCodeGenerator(tokenList, num, currentLine, fileName):
                         writeRISCFile(getRISCData(), getRISCText(), f"Failed - {name}")
                         exit(1)
 
-            ############################## MODIFY VARIABLES ###############################
+            # MODIFY VARIABLES
             elif prevToken.type == "Symbol" and token.type == "Operator":
-                ########################## MODIFICATION WITH PREVIOUSLY DEFINED VARIABLES ###############################
+                # MODIFICATION WITH PREVIOUSLY DEFINED VARIABLES
                 if token.value == "=" and nextToken.type == "Symbol":
-                    ########################## MODIFICATION WITH OPERATIONS ON PREVIOUSLY DEFINED VARIABLES ###############################
+                    # MODIFICATION WITH OPERATIONS ON PREVIOUSLY DEFINED VARIABLES
                     if tokenList[tokenList.index(nextToken) + 1].type == "Operator":
-                        ########################## MODIFICATION WITH ADDITION OF PREVIOUSLY DEFINED VARIABLES ###############################
+                        # MODIFICATION WITH ADDITION OF PREVIOUSLY DEFINED VARIABLES 
                         if tokenList[tokenList.index(nextToken) + 1].value == "+":
                             if tokenList[tokenList.index(nextToken) + 2].type == "Symbol" and tokenList[len(tokenList)-1].value == ";":
                                 RISCText.append(f"lw $t0, {prevToken.value}\n\tlw $t1, {nextToken.value}\n\tlw $t2, {tokenList[tokenList.index(nextToken) + 2].value}\n\tadd $t0, $t1, $t2\n\tsw $t0, {prevToken.value}\n\t")
-                ############################## MODIFY VARIABLE WITH INPUT ###############################
+                # MODIFY VARIABLE WITH INPUT 
                 elif token.value == "=" and nextToken.type == "Keyword":
                     if nextToken.value == "input" and tokenList[tokenList.index(nextToken) + 1].value == "(":
                         if tokenList[tokenList.index(nextToken) + 2].type == "String" and tokenList[tokenList.index(nextToken) + 3].value == ")" and tokenList[len(tokenList)-1].value == ";":
