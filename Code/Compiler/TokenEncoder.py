@@ -16,7 +16,7 @@
 # imports 
 import re
 import os
-from CodeGenerator import codeGenerator
+from CodeGenerator import MIPSCodeGenerator
 from Token import Token
 from PredefinedTokensAndPatterns import (
     symbols, comment_pattern, single_operators, 
@@ -29,7 +29,7 @@ from PredefinedTokensAndPatterns import (
 #                          regular expression search patterns and encodes recently found tokens.  Also    #
 #                          appends every encoded token to the returned list and a list labled "tokenList" #
 #                          that is used print the tokens out in the main function.  Finally, the method   #
-#                          calls the codeGenerator() method from the CodeGenerator program to compile     #
+#                          calls the MIPSCodeGenerator() method from the CodeGenerator program to compile #
 #                          each line of code passed through the tokenEncoder() method.                    #
 #      PARAMETERS:         line, codes, tableList, num, fileName                                          #
 #      RETURN VALUE:       the list of encoded tokens.                                                    #
@@ -153,9 +153,9 @@ def tokenEncoder(line, codes, tableList, num, fileName):
                 tableList.append(codes['litCodes'][len(codes['litCodes']) - 1])
         codeGenTokenList.append(token)
 
-    # pass parameters to codeGenerator method to compile the tokenized line of code
+    # pass parameters to MIPSCodeGenerator method to compile the tokenized line of code
     fileName = os.path.basename(fileName)
-    codeGenerator(codeGenTokenList, num, line, fileName)
+    MIPSCodeGenerator(codeGenTokenList, num, line, fileName)
 
     # return a list of all encoded tokens from the line of the file passed into the function
     return tokensList

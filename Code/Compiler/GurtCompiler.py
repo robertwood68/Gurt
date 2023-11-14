@@ -26,7 +26,7 @@ from TokenIDGenerator import generate
 from TokenEncoder import tokenEncoder
 from PredefinedTokensAndPatterns import common_keywords, operators_list, separators_list
 from WriteFile import writeMIPSFile
-from CodeGenerator import getTxtInstrs, getVarInstrs
+from CodeGenerator import getMIPSText, getMIPSData
 from TerminalColors import bcolors
 
 ###########################################################################################################
@@ -103,8 +103,8 @@ def main(input, filename, codesList):
         print(f"File '{filename}' not found.")
 
     # send resulting data section and text section instruction lists from the CodeGenerator class to the writeMIPSFile() method from the WriteFile class
-    vars = getVarInstrs()
-    text = getTxtInstrs()
+    vars = getMIPSData()
+    text = getMIPSText()
     writeMIPSFile(vars, text, input)
 
     print(bcolors.OKGREEN + bcolors.BOLD +"\n\tSuccess!" + bcolors.ENDC + bcolors.BOLD + " Code Compiled!" + bcolors.ENDC)
