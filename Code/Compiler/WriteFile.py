@@ -21,15 +21,16 @@ Return Value:
 None
 """
 def writeMIPSFile(variableInstructions, textInstructions, fileName):
-        with open(getOutputPath(fileName), 'w') as file:
-            file.write(".globl main\n.data:\n\t")
-            for var in variableInstructions:      
-                file.write(var)
-            file.write("\n.text:\nmain:\n\t")
-            for instr in textInstructions:
-                 file.write(instr)
-            exitInstruction = "li $v0, 10\n\tsyscall"
-            file.write(exitInstruction)
+    path = getOutputPath(fileName)[0]
+    with open(path, 'w') as file:
+        file.write(".globl main\n.data:\n\t")
+        for var in variableInstructions:      
+            file.write(var)
+        file.write("\n.text:\nmain:\n\t")
+        for instr in textInstructions:
+                file.write(instr)
+        exitInstruction = "li $v0, 10\n\tsyscall"
+        file.write(exitInstruction)
             
 """
 Description:
@@ -44,15 +45,16 @@ Return Value:
 None
 """
 def writeRISCFile(variableInstructions, textInstructions, fileName):
-        with open(getOutputPath(fileName), 'w') as file:
-            file.write(".globl main\n.data:\n\t")
-            for var in variableInstructions:      
-                file.write(var)
-            file.write("\n.text:\nmain:\n\t")
-            for instr in textInstructions:
-                 file.write(instr)
-            exitInstruction = "li $v0, 10\n\tsyscall" ############# Need to edit this for RISC ###############
-            file.write(exitInstruction)
+    path = getOutputPath(fileName)[1]
+    with open(path, 'w') as file:
+        file.write(".globl main\n.data:\n\t")
+        for var in variableInstructions:      
+            file.write(var)
+        file.write("\n.text:\nmain:\n\t")
+        for instr in textInstructions:
+                file.write(instr)
+        exitInstruction = "li $v0, 10\n\tsyscall" ############# Need to edit this for RISC ###############
+        file.write(exitInstruction)
 
 """
 Description:
@@ -65,6 +67,8 @@ Return Value:
 The path to write the file to
 """
 def getOutputPath(fileName):
+    # output paths to return
+    paths = []
     # get the path of the current script
     currentFile = os.path.abspath(__file__)
     # get the parent directory path (compiler directory)
@@ -73,7 +77,12 @@ def getOutputPath(fileName):
     gparent_dir = os.path.dirname(parent_directory)
     # return path to output file
     folderPath = os.path.join(gparent_dir, "CompiledOutput")
-    folderPath = os.path.join(folderPath, "MIPS")
-    return os.path.join(folderPath, fileName + "Compiled.asm")
+    mipsPath = os.path.join(folderPath, "MIPS")
+    riscPath = os.path.join(folderPath, "RISCV")
+    mipsPath = os.path.join(mipsPath, fileName + "Compiled.asm")
+    riscPath = os.path.join(riscPath, fileName + "Compiled.asm")
+    paths.append(mipsPath)
+    paths.append(riscPath)
+    return paths
 
 ################ NEED TO ADD RISC PATH TO THIS METHOD ###################
