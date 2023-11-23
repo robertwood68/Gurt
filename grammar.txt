@@ -1,8 +1,12 @@
-expr    : term ((PLUS|MINUS) term)*
+expr    : KEYWORD:int IDENTIFIER EQ expr
+        : term ((PLUS|MINUS) term)*
 
 term    : factor ((MUL|DIV) factor)*
 
-factor  : INT|FLOAT
-        : (PLUS|MINUS) factor
-        : OPCOL expr OPCOL
+factor  : (PLUS|MINUS) factor
+        : power
 
+power   : atom (POWER factor)*
+
+atom    : INT|FLOAT|IDENTIFIER
+        : OPCOL expr OPCOL
