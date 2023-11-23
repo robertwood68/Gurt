@@ -22,3 +22,7 @@ parser.parse(tokens).eval()
 
 codegen.create_ir()
 codegen.save_ir("output.ll")
+
+# llc -filetype=o output.ll
+# gcc output.o -o output
+# ./output
