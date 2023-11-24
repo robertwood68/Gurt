@@ -94,16 +94,15 @@ class Position:
 # data types
 TT_INT = 'INT'
 TT_FLOAT = 'FLOAT'
-TT_DBL = 'DBL'  # Need to implement this
+TT_DOUBLE = 'DOUBLE'  # Need to implement this
 TT_STR = 'STR'  # Need to implement this
-TT_BIN = 'BIN'  # Need to implement this
 
 # True/False
-TT_RBEST = 'RBEST'  # Need to implement this
-TT_RWORST = 'RWORST'  # Need to implement this
+TT_TRUE = 'TRUE'  # Need to implement this
+TT_FALSE = 'FALSE'  # Need to implement this
 
 # Null
-TT_NUTHIN = 'NUTHIN'  # Need to implement this
+TT_NULL = 'NULL'  # Need to implement this
 
 # variable token types
 TT_IDENTIFIER = 'IDENTIFIER'
@@ -115,8 +114,8 @@ TT_MINUS = 'MINUS'
 TT_MUL = 'MUL'
 TT_DIV = 'DIV'
 TT_POWER = 'POWER'
-TT_LSHIFT = 'LSHIFT'  # Need to implement this
-TT_RSHIFT = 'RSHIFT'  # Need to implement this
+TT_LSHIFT = 'LSHIFT'
+TT_RSHIFT = 'RSHIFT'
 TT_EQ = 'EQ'
 TT_OPCOL = 'OPCOL'
 
@@ -133,7 +132,6 @@ KEYWORDS = [
     'Robwoodistheworstprogrammerintheworld', 'Theresnothinginhere', 'for', 'if', 'ifagain', 'else', 'while',
     'Zellerforpresident'
 ]
-
 
 # Robwoodisthebestprogrammerintheworld = True
 # Robwoodistheworstprogrammerintheworld = False
@@ -204,6 +202,16 @@ class Lexer:
             elif self.current_char == '^':
                 tokens.append(Token(TT_POWER, pos_start=self.pos))
                 self.advance()
+            elif self.current_char == '<':
+                self.advance()
+                if self.current_char == '<':
+                    tokens.append(Token(TT_LSHIFT, pos_start=self.pos))
+                    self.advance()
+            elif self.current_char == '>':
+                self.advance()
+                if self.current_char == '>':
+                    tokens.append(Token(TT_RSHIFT, pos_start=self.pos))
+                    self.advance()
             elif self.current_char == '=':
                 tokens.append(Token(TT_EQ, pos_start=self.pos))
                 self.advance()
@@ -360,7 +368,7 @@ class Parser:
         if not res.error and self.current_tok.type != TT_EOF:
             return res.failure(InvalidSyntaxError(
                 self.current_tok.pos_start, self.current_tok.pos_end,
-                "Expected '+', '-', '*', or '/'"
+                "Expected '+', '-', '*', '/', '<<', or '>>'"
             ))
         return res
 
@@ -417,7 +425,7 @@ class Parser:
         return self.power()
 
     def term(self):
-        return self.binary_op(self.factor, (TT_MUL, TT_DIV))
+        return self.binary_op(self.factor, (TT_MUL, TT_DIV, TT_LSHIFT, TT_RSHIFT))
 
     def expr(self):
         res = ParseResult()
@@ -544,6 +552,20 @@ class Number:
                 )
             return Number(self.value / other.value).set_context(self.context), None
 
+    def lshifted_by(self, other):
+        if isinstance(other, Number):
+            return Number(self.value << other.value).set_context(self.context), None
+
+    def rshifted_by(self, other):
+        if isinstance(other, Number):
+            if other.value == 0:
+                return None, RTError(
+                    other.pos_start, other.pos_end,
+                    'Shifted by 0 bits',
+                    self.context
+                )
+            return Number(self.value >> other.value).set_context(self.context), None
+
     def powered_by(self, other):
         if isinstance(other, Number):
             return Number(self.value ** other.value).set_context(self.context), None
@@ -651,6 +673,10 @@ class Interpreter:
             result, error = left.multiplied_by(right)
         elif node.op_tok.type == TT_DIV:
             result, error = left.divided_by(right)
+        elif node.op_tok.type == TT_LSHIFT:
+            result, error = left.lshifted_by(right)
+        elif node.op_tok.type == TT_RSHIFT:
+            result, error = left.rshifted_by(right)
         elif node.op_tok.type == TT_POWER:
             result, error = left.powered_by(right)
 
@@ -681,7 +707,7 @@ class Interpreter:
 #############################
 
 global_symbol_table = SymbolTable()
-global_symbol_table.set("theresnothinginhere", Number(0))
+global_symbol_table.set("theresnothinginhere", Number(0)) # null
 
 
 def run(fn, text):
