@@ -97,10 +97,6 @@ TT_FLOAT = 'FLOAT'
 TT_DOUBLE = 'DOUBLE'  # Need to implement this
 TT_STR = 'STR'  # Need to implement this
 
-# True/False
-TT_TRUE = 'TRUE'  # Need to implement this
-TT_FALSE = 'FALSE'  # Need to implement this
-
 # Null
 TT_NULL = 'NULL'  # Need to implement this
 
@@ -126,12 +122,25 @@ TT_RPAREN = 'RPAREN'
 # end of file
 TT_EOF = 'EOF'
 
+# Comparisons
+TT_TRUE = 'TRUE'  # Need to implement this
+TT_FALSE = 'FALSE'  # Need to implement this
+TT_LT = 'LT'
+TT_LTEQ = 'LTEQ'
+TT_EQTO = 'EQTO'
+TT_NEQTO = 'NEQTO'
+TT_GTEQ = 'GTEQ'
+TT_GT = 'GT'
+
+
+
 # list of Gurt keywords
 KEYWORDS = [
     'print', 'input', 'return', 'int', 'dbl', 'flt', 'str', 'bin', 'Robwoodisthebestprogrammerintheworld',
     'Robwoodistheworstprogrammerintheworld', 'Theresnothinginhere', 'for', 'if', 'ifagain', 'else', 'while',
-    'Zellerforpresident'
+    'Zellerforpresident', 'and', 'or', 'not'
 ]
+
 
 # Robwoodisthebestprogrammerintheworld = True
 # Robwoodistheworstprogrammerintheworld = False
@@ -207,14 +216,15 @@ class Lexer:
                 if self.current_char == '<':
                     tokens.append(Token(TT_LSHIFT, pos_start=self.pos))
                     self.advance()
+                else:
+                    tokens.append(self.make_lt)
             elif self.current_char == '>':
                 self.advance()
                 if self.current_char == '>':
                     tokens.append(Token(TT_RSHIFT, pos_start=self.pos))
                     self.advance()
-            elif self.current_char == '=':
-                tokens.append(Token(TT_EQ, pos_start=self.pos))
-                self.advance()
+                else:
+                    tokens.append(self.make_gt)
             elif self.current_char == ':':
                 tokens.append(Token(TT_OPCOL, pos_start=self.pos))
                 self.advance()
@@ -224,6 +234,13 @@ class Lexer:
             elif self.current_char == ')':
                 tokens.append(Token(TT_RPAREN, pos_start=self.pos))
                 self.advance()
+            elif self.current_char == '!':
+                tok, error = self.make_not_equals()
+                if error:
+                    return [], error
+                tokens.append(tok)
+            elif self.current_char == '=':
+                tokens.append(self.make_equals())
             else:
                 pos_start = self.pos.copy()
                 char = self.current_char
@@ -264,6 +281,49 @@ class Lexer:
         tok_type = TT_KEYWORD if id_str in KEYWORDS else TT_IDENTIFIER
         return Token(tok_type, id_str, pos_start, self.pos)
 
+    def make_not_equals(self):
+        pos_start = self.pos.copy()
+        self.advance()
+
+        if self.current_char == '=':
+            self.advance()
+            return Token(TT_NEQTO, pos_start=pos_start, pos_end=self.pos), None
+
+        self.advance()
+        return None, ExpectedCharError(pos_start, self.pos, "'=' expected (after '!')")
+
+    def make_lt(self):
+        tok_type = TT_LT
+        pos_start = self.pos.copy()
+        self.advance()
+
+        if self.current_char == '=':
+            self.advance()
+            tok_type = TT_LTEQ
+
+        return Token(tok_type, pos_start=pos_start, pos_end=self.pos)
+
+    def make_gt(self):
+        tok_type = TT_GT
+        pos_start = self.pos.copy()
+        self.advance()
+
+        if self.current_char == '=':
+            self.advance()
+            tok_type = TT_GTEQ
+
+        return Token(tok_type, pos_start=pos_start, pos_end=self.pos)
+
+    def make_equals(self):
+        tok_type = TT_EQ
+        pos_start = self.pos.copy()
+        self.advance()
+
+        if self.current_char == '=':
+            self.advance()
+            tok_type = TT_EQTO
+
+        return Token(tok_type, pos_start=pos_start, pos_end=self.pos)
 
 #############################
 #           Nodes           #
@@ -707,7 +767,7 @@ class Interpreter:
 #############################
 
 global_symbol_table = SymbolTable()
-global_symbol_table.set("theresnothinginhere", Number(0)) # null
+global_symbol_table.set("theresnothinginhere", Number(0))  # null
 
 
 def run(fn, text):
