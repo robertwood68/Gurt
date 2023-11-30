@@ -1,12 +1,18 @@
-expr    : KEYWORD:int IDENTIFIER EQ expr
-        : term ((PLUS|MINUS) term)*
+expr        : KEYWORD:int IDENTIFIER EQ expr
+            : comp-expr ((KEYWORD:and|KEYWORD:or) comp-expr)*
 
-term    : factor ((MUL|DIV|LSHIFT|RSHIFT) factor)*
+comp-expr   : NOT comp-expr
+            : arith-expr ((EE|LT|GT|LTE|GTE) arith-expr)*
 
-factor  : (PLUS|MINUS) factor
-        : power
+arith-expr  : term ((PLUS|MINUS) term)*
+
+term        : factor ((MUL|DIV|LSHIFT|RSHIFT) factor)*
+
+factor      : (PLUS|MINUS) factor
+            : power
 
 power   : atom (POWER factor)*
 
 atom    : INT|FLOAT|DOUBLE|STR|IDENTIFIER
         : OPCOL expr OPCOL
+
