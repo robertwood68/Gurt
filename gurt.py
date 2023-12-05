@@ -100,8 +100,8 @@ class Position:
 #############################
 # data types
 TT_INT = 'INT'
-TT_FLOAT = 'FLOAT'
-TT_DOUBLE = 'DOUBLE'  # Need to implement this
+TT_FLT = 'FLT'
+TT_DBL = 'DBL'  # Need to implement this
 TT_STR = 'STR'  # Need to implement this
 
 # Null
@@ -298,7 +298,7 @@ class Lexer:
         if dot_count == 0:
             return Token(TT_INT, int(num_str), pos_start, self.pos)
         else:
-            return Token(TT_FLOAT, float(num_str), pos_start, self.pos)
+            return Token(TT_FLT, float(num_str), pos_start, self.pos)
 
     def make_str(self):
         string = ''
@@ -633,6 +633,34 @@ class Parser:
 
     def expr(self):
         res = ParseResult()
+        if self.current_tok.matches(TT_KEYWORD, 'let'):
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_IDENTIFIER:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected identifier"
+                ))
+
+            var_name = self.current_tok
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_EQ:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected '='"
+                ))
+
+            res.register_advancement()
+            self.advance()
+            expr = res.register(self.expr())
+
+            if res.error:
+                return res
+            return res.success(VarAssignNode(var_name, expr))
+
         if self.current_tok.matches(TT_KEYWORD, 'int'):
             res.register_advancement()
             self.advance()
@@ -655,6 +683,118 @@ class Parser:
 
             res.register_advancement()
             self.advance()
+
+            if self.current_tok.type is not TT_INT:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected integer, got {self.current_tok.type}:'{self.current_tok.value}'"
+                ))
+
+            expr = res.register(self.expr())
+
+            if res.error:
+                return res
+            return res.success(VarAssignNode(var_name, expr))
+
+        if self.current_tok.matches(TT_KEYWORD, 'flt'):
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_IDENTIFIER:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected identifier"
+                ))
+
+            var_name = self.current_tok
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_EQ:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected '='"
+                ))
+
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_FLT:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected float, got {self.current_tok.type}:'{self.current_tok.value}'"
+                ))
+
+            expr = res.register(self.expr())
+
+            if res.error:
+                return res
+            return res.success(VarAssignNode(var_name, expr))
+
+        if self.current_tok.matches(TT_KEYWORD, 'dbl'):
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_IDENTIFIER:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected identifier"
+                ))
+
+            var_name = self.current_tok
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_EQ:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected '='"
+                ))
+
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_FLT:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected double, got {self.current_tok.type}:'{self.current_tok.value}'"
+                ))
+
+            expr = res.register(self.expr())
+
+            if res.error:
+                return res
+            return res.success(VarAssignNode(var_name, expr))
+
+        if self.current_tok.matches(TT_KEYWORD, 'str'):
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_IDENTIFIER:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected identifier"
+                ))
+
+            var_name = self.current_tok
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_EQ:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected '='"
+                ))
+
+            res.register_advancement()
+            self.advance()
+
+            if self.current_tok.type is not TT_STR:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected string, got {self.current_tok.type}:'{self.current_tok.value}'"
+                ))
+
             expr = res.register(self.expr())
 
             if res.error:
@@ -764,7 +904,7 @@ class Parser:
         res = ParseResult()
         tok = self.current_tok
 
-        if tok.type in (TT_INT, TT_FLOAT):
+        if tok.type in (TT_INT, TT_FLT):
             res.register_advancement()
             self.advance()
             return res.success(NumberNode(tok))

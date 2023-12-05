@@ -16,6 +16,3 @@ for i = 5 to 0 then int i = i - 1
 if (i == 5) then print("balls");
 ifagain (i == 4) then print("fuck");
 else print("yay")
-
-
-run("test.gurt")
