@@ -1,3 +1,5 @@
+statements  : NEWLINE* expr (NEWLINE+ expr)* NEWLINE*
+
 expr        : KEYWORD:int IDENTIFIER EQ expr
             : comp-expr ((KEYWORD:and|KEYWORD:or) comp-expr)*
 
@@ -11,8 +13,43 @@ term        : factor ((MUL|DIV|LSHIFT|RSHIFT) factor)*
 factor      : (PLUS|MINUS) factor
             : power
 
-power   : atom (POWER factor)*
+power       : call (POWER factor)*
 
-atom    : INT|FLOAT|DOUBLE|STR|IDENTIFIER
-        : OPCOL expr OPCOL
+call        : atom (LPAREN (expr (COMMA expr)*)? RPAREN)?
+
+atom        : INT|FLOAT|DOUBLE|STR|IDENTIFIER
+            : OPCOL expr OPCOL
+            : list-expr
+            : if-expr
+            : for-expr
+            : while-expr
+            : func-def
+
+list-expr   : LSQUARE (expr (COMMA expr)*)? RSQUARE
+
+if-expr     : KEYWORD:if expr KEYWORD:then
+              (expr if-expr-b|if-expr-c?)
+            | (NEWLINE statements KEYWORD:done|if-expr-b|of-expr-c)
+
+if-expr-b   : KEYWORD:ifagain expr KEYWORD:then
+              (expr if-expr-b|if-expr-c?)
+            | (NEWLINE statements KEYWORD:done|if-expr-b|of-expr-c)
+
+if-expr-b   : KEYWORD:else
+              expr
+            | (NEWLINE statements KEYWORD:done)
+
+for-expr    : KEYWORD:for IDENTIFIER EQ expr KEYWORD:to expr
+              (KEYWORD:step expr)? KEYWORD:then expr
+              expr
+            | (NEWLINE statements KEYWORD:done)
+
+while-expr  : KEYWORD:while expr KEYWORD:then expr
+              expr
+            | (NEWLINE statements KEYWORD:done)
+
+func-def    : KEYWORD:define IDENTIFIER?
+              LPAREN (IDENTIFIER (COMMA IDENTIFIER)*)? RPAREN
+              (LBRACKET expr RBRACKET)
+            | (NEWLINE statements KEYWORD:done)
 

@@ -1,0 +1,21 @@
+print("hello world");
+print("The two numbers you enter will be added and your name will be printed that many times!");
+print("Enter a number: ");
+int x = inputInt();
+
+print("Enter another number: ");
+int y = inputInt();
+
+int z = x + y;
+
+print("what is your name?");
+int name = input();
+print("Hello " + name * z);
+
+for i = 5 to 0 then int i = i - 1
+if (i == 5) then print("balls");
+ifagain (i == 4) then print("fuck");
+else print("yay")
+
+
+run("test.gurt")
