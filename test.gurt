@@ -39,7 +39,8 @@ print("The final result of the modified number is: ")
 print(num)
 
 // execute an if-ifagain-else statement to check how big the number is
-if num < 480 then print("The modified number is less than 600") ifagain num < 850 then print("The modified number is greater than 480 and less than 800") else print("The modified number is greater than 480 and 800")
+if num < 480 then print("The modified number is less than 600") ifagain num < 850 then print("The modified number is
+greater than 480 and less than 800") else print("The modified number is greater than 480 and 800")
 print("")
 
 // prompt the user to enter a word and store in variable
@@ -96,6 +97,7 @@ print("")
 // add numbers to a list and output
 print("Here are your entered numbers as a list: ")
 int x = [num1, num2, num3]
+print(x)
 print("")
 
 // print thank you message

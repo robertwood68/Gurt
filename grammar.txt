@@ -35,7 +35,7 @@ if-expr-b   : KEYWORD:ifagain expr KEYWORD:then
               (expr if-expr-b|if-expr-c?)
             | (NEWLINE statements KEYWORD:done|if-expr-b|of-expr-c)
 
-if-expr-b   : KEYWORD:else
+if-expr-c   : KEYWORD:else
               expr
             | (NEWLINE statements KEYWORD:done)
 

@@ -6,8 +6,6 @@ while True:
         continue
     if text.lower() == 'exit' or text.lower() == 'quit':
         exit(0)
-    if text.lower() == 'run':
-        exit(0)
     result, error = gurt.run('<stdin>', text)
 
     if error:
