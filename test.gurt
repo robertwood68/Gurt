@@ -1,18 +1,34 @@
-print("hello world");
-print("The two numbers you enter will be added and your name will be printed that many times!");
-print("Enter a number: ");
-int x = inputInt();
-
-print("Enter another number: ");
-int y = inputInt();
-
-int z = x + y;
-
-print("what is your name?");
-int name = input();
-print("Hello " + name * z);
-
-for i = 5 to 0 then int i = i - 1
-if (i == 5) then print("balls");
-ifagain (i == 4) then print("fuck");
-else print("yay")
+define add(x, y, z) {int sum = x + y + z}
+print("Enter your name: ")
+let name = input()
+print("Hello " + name + "!")
+print("Enter a number to modify in a for loop: ")
+int num = inputInt()
+for i = 1 to 6 then int num = num * i
+print("The final result of the modified number is: ")
+print(num)
+if num < 480 then print("modified number is less than 600") ifagain num < 800 then print("modified number is greater than 480 and less than 800") else print("modified number is greater than 480 and 800")
+print("Enter a word to repeat: ")
+let word = input()
+print("Enter a number of times to repeat the word: ")
+int repeat = inputInt()
+print("The result is: ")
+print(word * repeat)
+print("Now going to run a while loop to decrease the repeat value to 2: ")
+while repeat > 2 then int repeat = repeat - 1
+print(repeat)
+print("Enter a new word to repeat, it will use the modified repeat value: ")
+let word2 = input()
+print("The result is: ")
+print(word2 * repeat)
+print("Enter num1: ")
+int num1 = inputInt()
+print("Enter num2: ")
+int num2 = inputInt()
+print("Enter num3: ")
+int num3 = inputInt()
+print("Now using the sum function to calculate the sum of those numbers...")
+print("The result is: ")
+int sum = add(num1, num2, num3)
+print(sum)
+print("Thanks for programming with Gurt!")

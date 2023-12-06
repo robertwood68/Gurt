@@ -149,7 +149,7 @@ TT_GT = 'GT'
 
 # list of Gurt keywords
 KEYWORDS = [
-    'int', 'dbl', 'flt', 'str', 'if', 'then', 'ifagain', 'else', 'and', 'or', 'not', 'for', 'to', 'step', 'while',
+    'int', 'dbl', 'flt', 'str', 'let', 'if', 'then', 'ifagain', 'else', 'and', 'or', 'not', 'for', 'to', 'step', 'while',
     'define', 'done'
 ]
 
@@ -584,10 +584,10 @@ class Parser:
 
     def parse(self):
         res = self.statements()
-        if not res.error and self.current_tok.type != TT_EOF:
+        if not res.error and self.current_tok.type != (TT_NEWLINE and TT_EOF):
             return res.failure(InvalidSyntaxError(
                 self.current_tok.pos_start, self.current_tok.pos_end,
-                "Expected '+', '-', '*', '/', '^', '<<', '>>', '==', '!=', '<', '>', '<=', '>=', 'and' or 'or'"
+                f"Expected '+', '-', '*', '/', '^', '<<', '>>', '==', '!=', '<', '>', '<=', '>=', 'and' or 'or', but got {self.current_tok.type}:'{self.current_tok.value}'"
             ))
         return res
 
@@ -684,11 +684,11 @@ class Parser:
             res.register_advancement()
             self.advance()
 
-            if self.current_tok.type is not TT_INT:
-                return res.failure(InvalidSyntaxError(
-                    self.current_tok.pos_start, self.current_tok.pos_end,
-                    f"Expected integer, got {self.current_tok.type}:'{self.current_tok.value}'"
-                ))
+            # if self.current_tok.type is not TT_INT or self.current_tok.value == 'print':
+            #     return res.failure(InvalidSyntaxError(
+            #         self.current_tok.pos_start, self.current_tok.pos_end,
+            #         f"Expected integer, got {self.current_tok.type}:'{self.current_tok.value}'"
+            #     ))
 
             expr = res.register(self.expr())
 
@@ -1870,7 +1870,7 @@ class BuiltInFunction(BaseFunction):
 
     def execute_input(self, exec_ctx):
         text = input()
-        return RTResult().success(String(text))
+        return RTResult().success(String(str(text)))
 
     execute_input.arg_names = []
 
