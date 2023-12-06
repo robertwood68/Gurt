@@ -1,0 +1,66 @@
+Operations:
+4 + 2
+4 - 2
+4 * 2
+4 << 1
+4 / 2
+4 >> 1
+2 ^ 3
+
+Order of Operations:
+4 + 5 * 2
+:4 + 5: * 2
+4 + 4 + 6 - 6 + :8 * 9: / 2
+
+Variables:
+int x = 4
+flt y = 4.5
+dbl z = 7.2
+str name = "rob"
+
+Operations on Variables:
+x + y
+x * 7
+int num = x + 5
+int num1 = y * z
+
+Functions:
+define sum(x, y) { int sum = x + y }
+sum(x, y)
+define mult(x, y) { int prod = x * y }
+mult(x, y)
+
+Built-in Functions:
+isNumber(1)
+isNumber("")
+isString("")
+isString()
+int list = [x, y, z]
+int list2 = [5, 345, 44]
+append(list, 400)
+list
+pop(list, 2)
+list
+extend(list, list2)
+list
+list2
+len(list)
+len(list2)
+isList(list)
+isList(sum)
+isFunction(list)
+isFunction(sum)
+
+Math Constants:
+e
+pi
+inf
+nan
+
+Error Handling:
+flt a = 4
+dbl b = 5
+1 / 0
+sum(x)
+sum(x, z)
+sum(x, y, num)

@@ -640,7 +640,19 @@ class Parser:
             if self.current_tok.type is not TT_IDENTIFIER:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected identifier"
+                    f"Expected identifier, but got {self.current_tok.type}:'{self.current_tok.value}'"
+                ))
+
+            if self.current_tok.value == "MrChedda":
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected identifier, but got KEYWORD:'{self.current_tok.value}'"
+                ))
+
+            if self.current_tok.value == "ZellerForPresident":
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected identifier, but got KEYWORD:'{self.current_tok.value}'"
                 ))
 
             var_name = self.current_tok
@@ -650,7 +662,7 @@ class Parser:
             if self.current_tok.type is not TT_EQ:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected '='"
+                    f"Expected '=', but got {self.current_tok.type}:'{self.current_tok.value}'"
                 ))
 
             res.register_advancement()
@@ -668,7 +680,19 @@ class Parser:
             if self.current_tok.type is not TT_IDENTIFIER:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected identifier"
+                    f"Expected identifier, but got {self.current_tok.type}:'{self.current_tok.value}'"
+                ))
+
+            if self.current_tok.value == "MrChedda":
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected identifier, but got KEYWORD:'{self.current_tok.value}'"
+                ))
+
+            if self.current_tok.value == "ZellerForPresident":
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected identifier, but got KEYWORD:'{self.current_tok.value}'"
                 ))
 
             var_name = self.current_tok
@@ -678,7 +702,7 @@ class Parser:
             if self.current_tok.type is not TT_EQ:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected '='"
+                    f"Expected '=', but got {self.current_tok.type}:'{self.current_tok.value}'"
                 ))
 
             res.register_advancement()
@@ -703,7 +727,19 @@ class Parser:
             if self.current_tok.type is not TT_IDENTIFIER:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected identifier"
+                    f"Expected identifier, but got {self.current_tok.type}:'{self.current_tok.value}'"
+                ))
+
+            if self.current_tok.value == "MrChedda":
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected identifier, but got KEYWORD:'{self.current_tok.value}'"
+                ))
+
+            if self.current_tok.value == "ZellerForPresident":
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected identifier, but got KEYWORD:'{self.current_tok.value}'"
                 ))
 
             var_name = self.current_tok
@@ -713,7 +749,7 @@ class Parser:
             if self.current_tok.type is not TT_EQ:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected '='"
+                    f"Expected '=', but got {self.current_tok.type}:'{self.current_tok.value}'"
                 ))
 
             res.register_advancement()
@@ -722,7 +758,7 @@ class Parser:
             if self.current_tok.type is not TT_FLT:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    f"Expected float, got {self.current_tok.type}:'{self.current_tok.value}'"
+                    f"Expected float, but got {self.current_tok.type}:'{self.current_tok.value}'"
                 ))
 
             expr = res.register(self.expr())
@@ -738,7 +774,19 @@ class Parser:
             if self.current_tok.type is not TT_IDENTIFIER:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected identifier"
+                    f"Expected identifier, but got {self.current_tok.type}:'{self.current_tok.value}'"
+                ))
+
+            if self.current_tok.value == "MrChedda":
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected identifier, but got KEYWORD:'{self.current_tok.value}'"
+                ))
+
+            if self.current_tok.value == "ZellerForPresident":
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected identifier, but got KEYWORD:'{self.current_tok.value}'"
                 ))
 
             var_name = self.current_tok
@@ -748,7 +796,7 @@ class Parser:
             if self.current_tok.type is not TT_EQ:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected '='"
+                    f"Expected '=', but got {self.current_tok.type}:'{self.current_tok.value}'"
                 ))
 
             res.register_advancement()
@@ -757,7 +805,7 @@ class Parser:
             if self.current_tok.type is not TT_FLT:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    f"Expected double, got {self.current_tok.type}:'{self.current_tok.value}'"
+                    f"Expected double, but got {self.current_tok.type}:'{self.current_tok.value}'"
                 ))
 
             expr = res.register(self.expr())
@@ -773,7 +821,19 @@ class Parser:
             if self.current_tok.type is not TT_IDENTIFIER:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected identifier"
+                    f"Expected identifier, but got {self.current_tok.type}:'{self.current_tok.value}'"
+                ))
+
+            if self.current_tok.value == "MrChedda":
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected identifier, but got KEYWORD:'{self.current_tok.value}'"
+                ))
+
+            if self.current_tok.value == "ZellerForPresident":
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected identifier, but got KEYWORD:'{self.current_tok.value}'"
                 ))
 
             var_name = self.current_tok
@@ -783,17 +843,17 @@ class Parser:
             if self.current_tok.type is not TT_EQ:
                 return res.failure(InvalidSyntaxError(
                     self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected '='"
+                    f"Expected '=', but got {self.current_tok.type}:'{self.current_tok.value}'"
                 ))
 
             res.register_advancement()
             self.advance()
 
-            if self.current_tok.type is not TT_STR:
-                return res.failure(InvalidSyntaxError(
-                    self.current_tok.pos_start, self.current_tok.pos_end,
-                    f"Expected string, got {self.current_tok.type}:'{self.current_tok.value}'"
-                ))
+            # if self.current_tok.type is not TT_STR:
+            #     return res.failure(InvalidSyntaxError(
+            #         self.current_tok.pos_start, self.current_tok.pos_end,
+            #         f"Expected string, got {self.current_tok.type}:'{self.current_tok.value}'"
+            #     ))
 
             expr = res.register(self.expr())
 
@@ -1644,9 +1704,10 @@ class Number(Value):
         return str(self.value)
 
 
-Number.null = Number(0)
-Number.true = Number(1)
-Number.false = Number(0)
+Number.null = Number("Null")
+Number.end = Number("")
+Number.true = Number("True")
+Number.false = Number("False")
 Number.math_PI = Number(math.pi)
 Number.math_e = Number(math.e)
 Number.math_nan = Number(math.nan)
@@ -1859,7 +1920,7 @@ class BuiltInFunction(BaseFunction):
 
     def execute_print(self, exec_ctx):
         print(str(exec_ctx.symbol_table.get('value')))
-        return RTResult().success(Number.null)
+        return RTResult().success(Number(""))
 
     execute_print.arg_names = ["value"]
 
@@ -1888,7 +1949,7 @@ class BuiltInFunction(BaseFunction):
 
     def execute_clear(self, exec_ctx):
         os.system('cls' if os.name == 'nt' else 'cls')
-        return RTResult().success(Number.null)
+        return RTResult().success(Number(""))
 
     execute_clear.arg_names = []
 
@@ -1928,7 +1989,7 @@ class BuiltInFunction(BaseFunction):
             ))
 
         list_.elements.append(value)
-        return RTResult().success(Number.null)
+        return RTResult().success(Number(0))
 
     execute_append.arg_names = ['list', 'value']
 
@@ -2030,7 +2091,7 @@ class BuiltInFunction(BaseFunction):
                 exec_ctx
             ))
 
-        return RTResult().success(Number.null)
+        return RTResult().success(Number.end)
 
     execute_run.arg_names = ["fn"]
 
@@ -2340,6 +2401,8 @@ global_symbol_table.set("true", Number.true)
 global_symbol_table.set("robwoodisthebestprogrammer", Number.true)
 global_symbol_table.set("false", Number.false)
 global_symbol_table.set("robwoodisnotthebestprogrammer", Number.false)
+global_symbol_table.set("ZellerForPresident", Number.true)
+global_symbol_table.set("MrChedda", Number("Nice"))
 
 # add math constants to table
 global_symbol_table.set("pi", Number.math_PI)

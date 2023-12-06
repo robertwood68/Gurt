@@ -1,34 +1,102 @@
+//
+// @author  Rob Wood
+// @date    6 December 2023
+//
+// The following Gurt program:
+//  - defines an "add" function that takes three integers
+//  - prompts the user to enter their name and greets them
+//  - prompts the user to enter a number, modifies the number in a for-loop and prints it
+//  - compares the modified number to others in an if-ifagain-else statement and prints the result
+//  - prompts the user to enter a word to repeat and a number of times to repeat it, then prints the result
+//  - decreases the repeat value in a while loop
+//  - prompts the user to enter another word to repeat, and prints the result of the word * the modified repeat value
+//  - prompts the user to enter three numbers, then executes the add() function and prints the result
+//  - adds the three previously entered numbers to a list and outputs the result to the user
+//  - thanks the user for programming with Gurt
+
+// define the add function
 define add(x, y, z) {int sum = x + y + z}
+
+// prompt user to enter their name and store in variable
 print("Enter your name: ")
-let name = input()
+str name = input()
+print("")
+
+// greet the user using the name they entered
 print("Hello " + name + "!")
+print("")
+
+// prompt user to enter number to modify and store in variable
 print("Enter a number to modify in a for loop: ")
 int num = inputInt()
+print("")
+
+// loop 5 times and multiply the input by i each loop
 for i = 1 to 6 then int num = num * i
+
+// output the result to the user
 print("The final result of the modified number is: ")
 print(num)
-if num < 480 then print("modified number is less than 600") ifagain num < 800 then print("modified number is greater than 480 and less than 800") else print("modified number is greater than 480 and 800")
+
+// execute an if-ifagain-else statement to check how big the number is
+if num < 480 then print("The modified number is less than 600") ifagain num < 850 then print("The modified number is greater than 480 and less than 800") else print("The modified number is greater than 480 and 800")
+print("")
+
+// prompt the user to enter a word and store in variable
 print("Enter a word to repeat: ")
 let word = input()
+print("")
+
+// prompt the user to enter a number of times to repeat the word and store in variable
 print("Enter a number of times to repeat the word: ")
 int repeat = inputInt()
+print("")
+
+// output the result to the user
 print("The result is: ")
 print(word * repeat)
-print("Now going to run a while loop to decrease the repeat value to 2: ")
+print("")
+
+// output that while loop is decreasing the number to 2
+print("Now going to run a while loop to decrease the repeat value to 2...")
 while repeat > 2 then int repeat = repeat - 1
-print(repeat)
+
+// prompt user to enter new word and store in variable
 print("Enter a new word to repeat, it will use the modified repeat value: ")
 let word2 = input()
+print("")
+
+// output result to user
 print("The result is: ")
 print(word2 * repeat)
+print("")
+
+// prompt the user to enter first number
 print("Enter num1: ")
 int num1 = inputInt()
+print("")
+
+// prompt the user to enter second number
 print("Enter num2: ")
 int num2 = inputInt()
+print("")
+
+// prompt the user to enter third number
 print("Enter num3: ")
 int num3 = inputInt()
+print("")
+
+// output the result to the user
 print("Now using the sum function to calculate the sum of those numbers...")
-print("The result is: ")
 int sum = add(num1, num2, num3)
+print("The result is: ")
 print(sum)
+print("")
+
+// add numbers to a list and output
+print("Here are your entered numbers as a list: ")
+int x = [num1, num2, num3]
+print("")
+
+// print thank you message
 print("Thanks for programming with Gurt!")
