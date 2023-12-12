@@ -4,9 +4,7 @@
      <img src="https://github.com/robertwood68/Gurt/blob/main/Logo%20Files/GurtLogo2.png?raw=true">
    </p>
    
-[Gurt](https://github.com/robertwood68/Gurt) is an introductory programming language that was created to help students who have no programming experience learn to write code easily and understand the basics of data types, operations, and functions.
-
-The full language definition for Gurt, including the syntax, example programs, Bachus-Naur Form, CONO Table, and Code Generators can be found in this repository [here](https://github.com/robertwood68/Gurt/blob/main/Language%20Description/Language%20Description%20-%20Gurt.pdf)
+[Gurt](https://github.com/robertwood68/Gurt) is an introductory programming language that was created to help students who have no programming experience learn to write code easily and understand the basics of data types, operations, and functions.  The full language definition for Gurt, including the syntax, example programs, Bachus-Naur Form, CONO Table, and Code Generators can be found in this repository [here](https://github.com/robertwood68/Gurt/blob/main/Language%20Description/Language%20Description%20-%20Gurt.pdf)
 
 The language is no longer being developed as it was created for a final project for CS340: Programming Language Design at York College of Pennsylvania during the Fall 2023 semester.  However, the language is fully functional, and can be used by doing the following:
 1. Clone the repository into PyCharm or whatever IDE you use to run Python scripts.
